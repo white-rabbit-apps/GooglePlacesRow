@@ -78,6 +78,7 @@ Follow these steps to run Example project:
 * Clone GooglePlacesRow repository
 * Run `carthage update` in the root of the project
 * Open GooglePlacesRow workspace 
+* Then you have to tell Xcode where your frameworks are by specifying the actual PATH to the `Build Settings/Framework Search Paths` of your target.
 * **Set your Google places API KEY in `AppDelegate.swift`**
 * and run the *Example* project.
 
