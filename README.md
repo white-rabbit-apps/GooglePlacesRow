@@ -32,7 +32,7 @@ import GoogleMaps
 
 // then in application:didFinishLaunchingWithOptions:
 let apiKey = "YOUR_API_KEY"
-GMSServices.provideAPIKey(apiKey)
+GooglePlacesRow.provideApiKey(apiKey)
 
 
 //in your subclass of FormViewController
@@ -77,7 +77,6 @@ If you use **GooglePlacesRow** in your app we would love to hear about it! Drop 
 Follow these steps to run Example project:
 * Clone GooglePlacesRow repository
 * Run `carthage update` in the root of the project
-* Due to the fact that the Google Maps binary is too large to be uploaded to Github you will have to get that framework by another means and paste it inside the `Frameworks` folder (create it, if it does not exist). You can for example download it from [here](https://www.gstatic.com/cpdc/369280b0e1f04cb7-GoogleMaps-1.13.0.tar.gz).
 * Open GooglePlacesRow workspace 
 * **Set your Google places API KEY in `AppDelegate.swift`**
 * and run the *Example* project.
@@ -95,10 +94,6 @@ To install GooglePlacesRow, simply add the following line to your Podfile:
 pod 'GooglePlacesRow'
 ```
 
-Then you have to tell Xcode where the Google Places framework is. The easiest way to do it is by adding `$(PROJECT_DIR)/Pods/GooglePlacesRow/Frameworks` to the `Build Settings/Framework Search Paths` of your target.
-
-> Note: Do not add `pod 'GoogleMaps'` to your podfile as this library includes it as a vendored framework
-
 <!--#### Carthage
 
 [Carthage](https://github.com/Carthage/Carthage) is a simple, decentralized dependency manager for Cocoa.
@@ -115,9 +110,7 @@ github "EurekaCommunity/GooglePlacesRow"
 There are five variables that you can use to modify the default behaviour of these rows:
 
 * In the row:
-	* `placeFilter`: Is a `GMSAutocompleteFilter` used in the request to Google Places to define what kind of suggestions will be returned (e.g. cities, addresses, country). Refer to the official docummentation of Google for more detailed information.
-	* `placeBounds`: Bounds to limit the search for places. Refer to the official docummentation of Google for more detailed information.
-	* `onNetworkingError`: Block that is called when the request to Google Places returns an error
+	* `placeFilter`: Is a `PlaceType` used in the request to Google Places to define what kind of suggestions will be returned (e.g. cities, addresses, country). 
 * In the cell:
 	* `useTimer`: If the request to Google Places should be throttled using a timer. If `true` then it will wait for `timerInterval` seconds before making a request. If the user continues entering text into the row then the previous request will not be fired
 	* `timerInterval`: The interval in seconds used for the timer explained above
@@ -160,15 +153,9 @@ In this case just make sure your cell conforms to `EurekaGooglePlacesTableViewCe
 
 ## FAQ
 
-#### Xcode says `ld: framework not found GoogleMaps for architecture x86_64`. 
-
-This is most probalby because you forgot to tell Xcode where `GoogleMaps.framework` is or you did forget to download it altogether. Please follow the [example instructions](#examples) or the [installation instructions](#installation).
-
 ## Future work
 * Carthage compatibility
 * Investigate automation of the installation process
-
-
 
 ## Author
 
