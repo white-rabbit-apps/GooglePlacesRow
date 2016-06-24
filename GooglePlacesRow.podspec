@@ -12,12 +12,15 @@ Pod::Spec.new do |s|
   s.ios.source_files = 'Sources/**/*'
   s.ios.frameworks = 'UIKit', 'Foundation'
   s.dependency 'Eureka', '~> 1.5'
-  s.libraries             = "c++", "icucore", "z" # required for GoogleMaps.framework
-  s.frameworks            = "Accelerate", "AVFoundation", "CoreData", "CoreGraphics", "CoreBluetooth", "CoreLocation", "CoreText", "Foundation", "GLKit", "ImageIO", "OpenGLES", "QuartzCore", "SystemConfiguration", "GoogleMaps" # required for GoogleMaps.framework  
-  s.vendored_frameworks = "Frameworks/GoogleMaps.framework"
-  s.prepare_command = <<-CMD
-                        curl -o GoogleMaps 'https://www.gstatic.com/cpdc/369280b0e1f04cb7-GoogleMaps-1.13.0.tar.gz'
-                        tar -zxvf GoogleMaps
-                   CMD
-  #s.dependency 'GoogleMaps', '~> 1.13'
+  s.frameworks            = "Accelerate", "AVFoundation", "CoreData", "CoreGraphics", "CoreBluetooth", "CoreLocation", "CoreText", "Foundation", "GLKit", "ImageIO", "OpenGLES", "QuartzCore", "SystemConfiguration"
 end
+
+  #s.libraries = "c++", "icucore", "z" # required for GoogleMaps.framework
+  #s.frameworks = "Accelerate", "AVFoundation", "CoreData", "CoreGraphics", #"CoreBluetooth", "CoreLocation", "CoreText", "Foundation", "GLKit", "ImageIO", #"OpenGLES", "QuartzCore", "SystemConfiguration", "GoogleMaps" # required for #GoogleMaps.framework  
+  #s.vendored_frameworks = "Frameworks/GoogleMaps.framework"
+  #s.prepare_command = <<-CMD
+   #                     curl -o GoogleMaps 'https://www.gstatic.com/cpdc/#369280b0e1f04cb7-GoogleMaps-1.13.0.tar.gz'
+ #                       tar -zxvf GoogleMaps
+  #                 CMD
+  #s.dependency 'GoogleMaps', '~> 1.13'
+#end
