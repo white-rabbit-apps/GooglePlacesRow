@@ -7,12 +7,12 @@
 //
 
 import Foundation
-import GoogleMaps
+//import GoogleMaps
 import Eureka
 
 
 public protocol EurekaGooglePlacesCollectionViewCell {
-    func setText(prediction: GMSAutocompletePrediction)
+    func setText(prediction: Place)
     func sizeThatFits() -> CGSize
 }
 
@@ -42,8 +42,8 @@ public class GPCollectionViewCell: UICollectionViewCell, EurekaGooglePlacesColle
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[label]|", options: [], metrics: nil, views: ["label": label]))
     }
     
-    public func setText(prediction: GMSAutocompletePrediction) {
-        label.text = prediction.attributedFullText.string
+    public func setText(prediction: Place) {
+        label.text = prediction.desc
     }
     
     public func sizeThatFits() -> CGSize {

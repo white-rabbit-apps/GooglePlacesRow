@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import Eureka
-import GoogleMaps
+//import GoogleMaps
 
 /// This is the general cell for the GooglePlacesCell. Create a subclass or use GooglePlacesCollectionCell or GooglePlacesTableCell instead.
 public class GooglePlacesCell: _FieldCell<GooglePlace>, CellType {
@@ -23,7 +23,8 @@ public class GooglePlacesCell: _FieldCell<GooglePlace>, CellType {
     
     //MARK: Private / internal
     let cellReuseIdentifier = "Eureka.GooglePlaceCellIdentifier"
-    var predictions: [GMSAutocompletePrediction]?
+    //var predictions: [GMSAutocompletePrediction]?
+    var predictions: [Place]?
     
     private var autocompleteTimer: NSTimer?
     

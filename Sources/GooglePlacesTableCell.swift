@@ -16,7 +16,7 @@ public class GooglePlacesTableCell<TableViewCell: UITableViewCell where TableVie
     
     /// UICollectionView that acts as inputAccessoryView.
     public var tableView: UITableView?
-
+    
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }

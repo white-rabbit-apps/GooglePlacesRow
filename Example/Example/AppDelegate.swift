@@ -6,7 +6,8 @@
 //
 
 import UIKit
-import GoogleMaps
+//import GoogleMaps
+import GooglePlacesRow
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,7 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         //TODO: Set API_KEY
         let apiKey = "YOUR_API_KEY"
-        GMSServices.provideAPIKey(apiKey)
+        //GMSServices.provideAPIKey(apiKey)
+        GooglePlacesRow.provideApiKey(apiKey)
         if apiKey == "YOUR_API_KEY" {
             print("IF YOU SEE THIS IN YOUR CONSOLE IT'S BECAUSE YOU FORGOT TO SET YOUR API_KEY")
             assertionFailure()

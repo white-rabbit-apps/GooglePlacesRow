@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import GoogleMaps
+//import GoogleMaps
 import Eureka
 
 public protocol EurekaGooglePlacesTableViewCell {
-    func setTitle(prediction: GMSAutocompletePrediction)
+    func setTitle(prediction: Place)
 }
 
 /// Default cell for the table of the GooglePlacesTableCell
@@ -35,7 +35,9 @@ public class GPTableViewCell: UITableViewCell, EurekaGooglePlacesTableViewCell {
         contentView.backgroundColor = UIColor.whiteColor()
     }
     
-    public func setTitle(prediction: GMSAutocompletePrediction) {
-        textLabel?.text = prediction.attributedFullText.string
+    public func setTitle(prediction: Place) {
+        //textLabel?.text = prediction.attributedFullText.string
+        textLabel?.text = prediction.desc
+        
     }
 }

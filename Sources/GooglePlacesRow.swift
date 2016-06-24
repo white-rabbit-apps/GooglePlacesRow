@@ -7,7 +7,7 @@
 
 import Foundation
 import Eureka
-import GoogleMaps
+//import GoogleMaps
 
 protocol GooglePlacesRowProtocol {
     func autoComplete(text: String)
@@ -21,7 +21,7 @@ protocol GooglePlacesRowProtocol {
  */
 public enum GooglePlace {
     case UserInput(value: String)
-    case Prediction(prediction: GMSAutocompletePrediction)
+    case Prediction(prediction: Place)
 }
 
 extension GooglePlace: Equatable, InputTypeInitiable {
@@ -29,16 +29,30 @@ extension GooglePlace: Equatable, InputTypeInitiable {
         self = .UserInput(value: stringValue)
     }
 }
+//
+//public func == (lhs: GooglePlace, rhs: GooglePlace) -> Bool {
+//    switch (lhs, rhs) {
+//    case (let .UserInput( val), let .UserInput( val2)):
+//        return val == val2
+//    case (let .Prediction( pred), let .Prediction( pred2)):
+//        if pred.placeID != nil {
+//            return pred.placeID == pred2.placeID
+//        }
+//        return pred2.placeID == nil && pred.attributedFullText == pred2.attributedFullText
+//    default:
+//        return false
+//    }
+//}
 
 public func == (lhs: GooglePlace, rhs: GooglePlace) -> Bool {
     switch (lhs, rhs) {
     case (let .UserInput( val), let .UserInput( val2)):
         return val == val2
     case (let .Prediction( pred), let .Prediction( pred2)):
-        if pred.placeID != nil {
-            return pred.placeID == pred2.placeID
+        if pred.id != "" {
+            return pred.id == pred2.id
         }
-        return pred2.placeID == nil && pred.attributedFullText == pred2.attributedFullText
+        return pred2.id == "" && pred.desc == pred2.desc
     default:
         return false
     }
@@ -47,21 +61,24 @@ public func == (lhs: GooglePlace, rhs: GooglePlace) -> Bool {
 /// Generic GooglePlaces rows superclass
 public class _GooglePlacesRow<Cell: GooglePlacesCell where Cell.Value == GooglePlace>: FieldRow<GooglePlace, Cell>, GooglePlacesRowProtocol {
     /// client that connects with Google Places
-    private let placesClient = GMSPlacesClient()
+    //private let placesClient = GMSPlacesClient()
+    private let placesAutoComplete = GooglePlacesAutocompleteContainer()
     
     /// Google Places filter. Change this to search for cities, addresses, country, etc
-    public var placeFilter: GMSAutocompleteFilter?
+    //public var placeFilter: GMSAutocompleteFilter?
+    public var placeFilter: PlaceType?
     
     /// Google Places bounds. Ratio for the results of the filter. Read the official documentation for more
-    public var placeBounds: GMSCoordinateBounds?
+    //public var placeBounds: GMSCoordinateBounds?
     
     /// Will be called when Google Places request returns an error.
     public var onNetworkingError: (NSError? -> Void)?
-
+    
     required public init(tag: String?) {
         super.init(tag: tag)
-        placeFilter = GMSAutocompleteFilter()
-        placeFilter?.type = .City
+        //placeFilter = GMSAutocompleteFilter()
+        placeFilter = PlaceType.Cities
+        //placeFilter?.type = .City
         displayValueFor = { place in
             guard let place = place else {
                 return nil
@@ -70,20 +87,25 @@ public class _GooglePlacesRow<Cell: GooglePlacesCell where Cell.Value == GoogleP
             case let GooglePlace.UserInput(val):
                 return val
             case let GooglePlace.Prediction(pred):
-                return pred.attributedFullText.string
+                //return pred.attributedFullText.string
+                return pred.desc
             }
         }
     }
-
+    
     func autoComplete(text: String) {
-        placesClient.autocompleteQuery(text, bounds: placeBounds, filter: placeFilter, callback: { [weak self] (results, error: NSError?) -> Void in
-            guard let results = results else {
-                self?.onNetworkingError?(error)
-                return
-            }
-            self?.cell.predictions = results
-            self?.cell.reload()
-        })
+        placesAutoComplete.getPlacesResults(text)
+        self.cell.predictions = placesAutoComplete.getPlacesResults(text)
+        self.cell.reload()
+        
+        //        placesClient.autocompleteQuery(text, bounds: placeBounds, filter: placeFilter, callback: { [weak self] (results, error: NSError?) -> Void in
+        //            guard let results = results else {
+        //                self?.onNetworkingError?(error)
+        //                return
+        //            }
+        //            self?.cell.predictions = results
+        //            self?.cell.reload()
+        //        })
     }
 }
 

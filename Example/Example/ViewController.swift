@@ -8,7 +8,7 @@
 import UIKit
 import GooglePlacesRow
 import Eureka
-import GoogleMaps
+//import GoogleMaps
 
 class ViewController: FormViewController {
 
@@ -34,7 +34,7 @@ class ViewController: FormViewController {
         +++ Section("Big collection view with addresses")
             <<< GooglePlacesAccessoryRow("address(4)"){ row in
                     row.title = "Address:"
-                    row.placeFilter?.type = .Address
+                    row.placeFilter = PlaceType.Cities
                 }.cellSetup { cell, row in
                 cell.collectionView?.frame = CGRectMake(0, 0, cell.frame.size.width, 100)
         }
